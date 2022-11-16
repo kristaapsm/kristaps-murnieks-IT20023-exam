@@ -9,7 +9,24 @@
                 <span class="avatar"></span>
                 <h3 id="txt-full-name">NAME SURNAME</h3>
             </div>
-            <button id="btn-logout">LOGOUT</button>
+            <button id="btn-logout" type="submit" @click="logout" >LOGOUT</button>
         </div>
     </div>
 </template>
+
+
+<script>
+import { auth } from '../stores/auth.js'
+export default {
+    data() {
+        return {
+           authenticated: auth.is_authenticated
+        }
+    },
+    methods: {
+        logout(event) {
+            auth.logout();
+        }
+    }
+}
+</script>

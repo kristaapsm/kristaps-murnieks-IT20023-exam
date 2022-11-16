@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Importējam vēlamos skatus kurus gribam izmantot
-import Login from '@/views/Login.vue'
+import Login from '../views/Login.vue'
 import Songs from '../views/Songs.vue'
 import Albums from '../views/Albums.vue'
 import About from '../views/About.vue'
@@ -42,7 +42,7 @@ router.beforeEach((to, from) => {
     if (auth.is_authenticated == false && to.path != "/login") {
         return "/login";
     }else if (auth.is_authenticated == true && to.path == "/login"){
-        return from ? from.path : "/login";
+        return from ? from.path : "/";
     }
 })
 

@@ -25,14 +25,15 @@ authenticate(email, password) {
         localStorage.is_authenticated = true;
         this.is_authenticated = true;
         console.log("correct");
-        router.push("/");
+        router.go("/");
     }
 },
 
 logout() {
+    console.log("logged out");
     localStorage.clear();
     this.is_authenticated = false;
-    router.push('/login');
+    router.go('/login');
 },
 
 toggleFavorite(songID) {
