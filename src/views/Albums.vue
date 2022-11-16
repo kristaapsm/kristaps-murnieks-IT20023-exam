@@ -3,18 +3,22 @@
     <div class="wrapper-header">
         <h1>ALBUMS</h1>
         <div class="settings">
-            <button id="btn-grid"></button>
-            <button id="btn-list"></button>
+            <button id="btn-grid" :class="{ active: status == true }" v-on:click= setStatus(true) >
+                <IconGrid />
+            </button>
+            <button id="btn-list" :class="{ active: status == false }" v-on:click= setStatus(false) >
+                <IconList />
+            </button>
         </div>
     </div>
-    <ul id="list-albums">
-        <li class="album" v-for="(songs, index) in songs">
-            <img id="img-album" src="https://i.scdn.co/image/ab67616d00001e02980c9d288a180838cd12ad24" />
+    <ul id="list-albums" v-bind:class="{ grid: status}">
+        <li class="album" v-for="album in albums">
+            <img id="img-album" :src="album.images[1].url" />
             <div class="album-info">
-                <h4 id="txt-album-name">We May Grow Old But We Never Grow Up</h4>
-                <p id="txt-album-artists">Example</p>
+                <h4 id="txt-album-name">{{album.name}}</h4>
+                <p id="txt-album-artists">{{album.artists[0].name}}</p>
                 <div class="album-year">
-                    <p id="txt-album-year">2022</p>
+                    <p id="txt-album-year">{{getYear(album.release_date)}}</p>
                     <p id="txt-album-tracks">2</p>
                 </div>
             </div>
@@ -25,20 +29,52 @@
 
 
 <script>
-import { auth } from '/src/stores/auth.js'
+import songs from '../data/songs'
+import IconGrid from '../components/icons/IconGrid.vue'
+import IconList from '../components/icons/IconList.vue'
+
 export default {
     data() {
       return {
-        email: '',
-        password: '',
-        songs: songs
+        songs: songs,
+        status : true
+
       }
     },
-    methods: {
-        login() {
-                auth.authenticate(this.email, this.password);
-        }
+    components:{
+        IconGrid,
+        IconList,
     },
+
+    methods: {
+        getYear(date) {
+                return date.slice(0,4);
+        },
+
+        setStatus(value) {
+            this.status = value;
+    }
+    },
+
+    
+
+    computed: {
+        albums: {
+                get() {
+                    let song = songs;
+                    let albumList = [];
+                    let albumNames = [];
+                    for (let i = 0; i<song.length; i++) {
+                        if(albumNames.indexOf(song[i].album.name) <0) {
+                            albumList.push(song[i].album);
+                            albumNames.push(song[i].album.name)
+                        }
+                    }
+                    return albumList
+                }
+            }
+    },
+
   
   }
 </script>
