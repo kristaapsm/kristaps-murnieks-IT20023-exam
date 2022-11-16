@@ -21,11 +21,11 @@ setUserData(name, surname, code) {
 },
 
 authenticate(email, password) {
+    alert("Izpildias");
     if(email == 'kristaps@va.lv' && password == '123456'){
         localStorage.is_authenticated = true;
         this.is_authenticated = true;
-        console.log("correct");
-        router.go("/");
+        router.push('/');
     }
 },
 
@@ -33,7 +33,7 @@ logout() {
     console.log("logged out");
     localStorage.clear();
     this.is_authenticated = false;
-    router.go('/login');
+    router.push('/login');
 },
 
 toggleFavorite(songID) {

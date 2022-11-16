@@ -7,7 +7,7 @@
         <div class="wrapper-profile">
             <div class="section-user">
                 <span class="avatar"></span>
-                <h3 id="txt-full-name">NAME SURNAME</h3>
+                <h3 id="txt-full-name">{{name + " " +  surname}}</h3>
             </div>
             <button id="btn-logout" type="submit" @click="logout" >LOGOUT</button>
         </div>
@@ -20,7 +20,9 @@ import { auth } from '../stores/auth.js'
 export default {
     data() {
         return {
-           authenticated: auth.is_authenticated
+            name : auth.user.name,
+            surname : auth.user.surname,
+            authenticated: auth.is_authenticated
         }
     },
     methods: {

@@ -7,7 +7,7 @@
             </div>
             <input id="input-email" v-model="email" placeholder="E-mail" />
             <input id="input-password" v-model="password" placeholder="Password" />
-            <button id="btn-submit" type="submit" @click="login" :disabled="disabled">LOGIN</button>
+            <button id="btn-submit"  v-on:click="login()" :disabled="disabled" >LOGIN</button>
         </form>
     </div>
 </template>
@@ -22,7 +22,7 @@ export default {
       }
     },
     methods: {
-        login(event) {
+        login() {
                 auth.authenticate(this.email, this.password);
         }
     },
